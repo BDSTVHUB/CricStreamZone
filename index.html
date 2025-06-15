@@ -9,25 +9,13 @@
 <link rel="manifest" href="manifest.json">
 
 <!-- Service Worker রেজিস্টার -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log("✅ Service Worker registered"))
-        .catch(err => console.log("❌ SW error:", err));
-    }
-  </script>
-
-  <!-- OneSignal Push Notification -->
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "49016479-e4e7-4822-82e3-870b185a1e8d",
-      });
-    });
-  </script>
-</head>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log("✅ Service Worker registered"))
+      .catch(err => console.log("❌ SW error:", err));
+  }
+</script>
   <style>
   	.menu-dropdown {
   position: relative;
@@ -354,24 +342,27 @@ Google Play Store or join our Telegram channel for the latest updates and app li
   list.innerHTML = "";
   const filter = document.getElementById('search').value.toLowerCase();
 
-  let filteredMatches = matches.filter(m => {  
-  const ct = new Date(m.MatchTime);  
-  const isLive = now >= ct;  
-  
-  if (type === 'live' && !isLive) return false;  
-  
-  else if (type === 'today') {  
-    if (ct < todayStart || ct >= todayEnd || isLive) return false;  
-  }  
-  
-  else if (type === 'upcoming') {  
-    if (ct < now || (ct >= todayStart && ct < todayEnd)) return false;  
-  }  
-  
-  if (filter && !(m.Match.toLowerCase().includes(filter) || m.Team1.toLowerCase().includes(filter) || m.Team2.toLowerCase().includes(filter))) return false;  
-  
-  return true;  
+  let filteredMatches = matches.filter(m => {
+  const ct = new Date(m.MatchTime);
+  const isLive = now >= ct;
+
+  if (type === 'live' && !isLive) return false;
+
+  else if (type === 'today') {
+    if (ct < todayStart || ct >= todayEnd || isLive) return false;
+  }
+
+  else if (type === 'upcoming') {
+    if (ct < now || (ct >= todayStart && ct < todayEnd)) return false;
+  }
+
+  if (filter && !(m.Match.toLowerCase().includes(filter) || m.Team1.toLowerCase().includes(filter) || m.Team2.toLowerCase().includes(filter))) return false;
+
+  return true;
 });
+
+// 🔀 এইখানে টাইম অনুযায়ী ছোট থেকে বড় সাজানো হচ্ছে
+filteredMatches.sort((a, b) => new Date(a.MatchTime) - new Date(b.MatchTime));
 
   if (filteredMatches.length === 0) {
   let emojiMessage = '😴 No matches available right now.';
