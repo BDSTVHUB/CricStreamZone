@@ -455,20 +455,23 @@ filteredMatches.sort((a, b) => new Date(a.MatchTime) - new Date(b.MatchTime));
   }
 
     div.innerHTML = `
-      <div class="teams">
-        <img src="${m.Team1Logo}" alt="${m.Team1} logo" loading="lazy" />
-        ${m.Team1}
-        <span style="margin: 0 10px; color: #0af;">vs</span>
-        ${m.Team2}
-        <img src="${m.Team2Logo}" alt="${m.Team2} logo" loading="lazy" />
-      </div>
-      ${timerHtml}
-      <div class="btns">
-        ${m.Intent1 ? `<a href="${m.Intent1}" target="_blank" rel="noopener noreferrer">Server 1</a>` : ""}
-        ${m.Intent2 ? `<a href="${m.Intent2}" target="_blank" rel="noopener noreferrer">Server 2</a>` : ""}
-        ${m.Intent3 ? `<a href="${m.Intent3}" target="_blank" rel="noopener noreferrer">Server 3</a>` : ""}
-      </div>
-    `;
+  <div style="text-align:center; font-size:18px; font-weight:bold; margin-bottom:10px; color:#0af;">
+    ${m.Match}
+  </div>
+  <div class="teams">
+    <img src="${m.Team1Logo}" alt="${m.Team1} logo" loading="lazy" />
+    ${m.Team1}
+    <span style="margin: 0 10px; color: #0af;">vs</span>
+    ${m.Team2}
+    <img src="${m.Team2Logo}" alt="${m.Team2} logo" loading="lazy" />
+  </div>
+  ${timerHtml}
+  <div class="btns">
+    ${m.Intent1 ? `<a href="${m.Intent1}" target="_blank" rel="noopener noreferrer">Server 1</a>` : ""}
+    ${m.Intent2 ? `<a href="${m.Intent2}" target="_blank" rel="noopener noreferrer">Server 2</a>` : ""}
+    ${m.Intent3 ? `<a href="${m.Intent3}" target="_blank" rel="noopener noreferrer">Server 3</a>` : ""}
+  </div>
+`;
 
     list.appendChild(div);
 
